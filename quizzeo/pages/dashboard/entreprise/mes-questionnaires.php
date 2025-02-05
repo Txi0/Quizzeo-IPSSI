@@ -23,7 +23,8 @@ $entrepriseQuizzes = array_filter($quizDb->getAll(), function($quiz) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mes Questionnaires - Quizzeo</title>
-    <link rel="stylesheet" href="../../../assets/css/dashboard-entreprise.css">
+    <link rel="stylesheet" href="../../../assets/css/base.css">
+    <link rel="stylesheet" href="../../../assets/css/mes-questionnaires.css">
 </head>
 <body>
     <div class="dashboard-container">
