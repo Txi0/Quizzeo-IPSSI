@@ -16,6 +16,8 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'entreprise') {
     <title>Créer un questionnaire - Quizzeo</title>
     <link rel="stylesheet" href="../../../assets/css/base.css">
     <link rel="stylesheet" href="../../../assets/css/create-quiz.css">
+    <script src="../../../assets/js/main.js"></script>
+
 </head>
 <body>
     <div class="dashboard-container">
