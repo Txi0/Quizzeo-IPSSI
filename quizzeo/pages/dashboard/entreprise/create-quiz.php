@@ -3,61 +3,9 @@
 session_start();
 require_once '../../../includes/auth.php';
 
-// Vérification du rôle
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'entreprise') {
     header('Location: ../../login.php');
     exit;
-}
-
-// Types de questions disponibles pour les entreprises
-$questionTypes = [
-    'rating' => 'Note de satisfaction (1-5)',
-    'qcm' => 'Choix multiples',
-    'text' => 'Réponse libre'
-];
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $quizDb = new JsonDatabase('quizzes.json');
-    
-    $quiz = [
-        'id' => uniqid(),
-        'user_id' => $_SESSION['user']['id'],
-        'titre' => $_POST['titre'],
-        'description' => $_POST['description'],
-        'type' => 'satisfaction',
-        'questions' => [],
-        'status' => 'en cours d\'écriture',
-        'nb_reponses' => 0,
-        'created_at' => date('Y-m-d H:i:s')
-    ];
-
-    foreach ($_POST['questions'] as $questionData) {
-        $question = [
-            'id' => uniqid(),
-            'texte' => $questionData['texte'],
-            'type' => $questionData['type']
-        ];
-
-        // Gestion spécifique selon le type de question
-        switch ($questionData['type']) {
-            case 'rating':
-                $question['max_rating'] = 5;
-                break;
-            case 'qcm':
-                $question['options'] = $questionData['options'] ?? [];
-                break;
-            case 'text':
-                $question['placeholder'] = $questionData['placeholder'] ?? '';
-                break;
-        }
-
-        $quiz['questions'][] = $question;
-    }
-
-    if ($quizDb->insert($quiz)) {
-        header('Location: mes-quiz.php?success=1');
-        exit;
-    }
 }
 ?>
 
@@ -67,80 +15,79 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Créer un questionnaire - Quizzeo</title>
-    <link rel="stylesheet" href="../../../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../../../assets/css/dashboard-entreprise.css">
 </head>
 <body>
     <div class="dashboard-container">
         <!-- Sidebar -->
-        <nav class="sidebar">
+        <div class="sidebar">
             <div class="logo">
                 <img src="../../../assets/images/logo.png" alt="Quizzeo">
             </div>
             <div class="user-info">
                 <h3><?php echo htmlspecialchars($_SESSION['user']['nom_entreprise']); ?></h3>
+                <p>Entreprise</p>
             </div>
-            <ul class="menu">
+            <ul class="sidebar-menu">
                 <li><a href="index.php">Tableau de bord</a></li>
-                <li class="active"><a href="create-quiz.php">Créer un questionnaire</a></li>
-                <li><a href="mes-quiz.php">Mes questionnaires</a></li>
-                <li><a href="analyse.php">Analyses</a></li>
+                <li><a href="create-quiz.php" class="active">Créer un questionnaire</a></li>
+                <li><a href="mes-questionnaires.php">Mes questionnaires</a></li>
+                <li><a href="analyses.php">Analyses</a></li>
                 <li><a href="../../../logout.php">Déconnexion</a></li>
             </ul>
-        </nav>
+        </div>
 
         <!-- Main Content -->
-        <main class="main-content">
-            <header class="dashboard-header">
+        <div class="main-content">
+            <div class="header">
                 <h1>Créer un nouveau questionnaire</h1>
-            </header>
-
-            <div class="content-body">
-                <form method="POST" action="" id="quizForm" class="quiz-form">
-                    <!-- Informations générales -->
-                    <div class="form-section">
-                        <h2>Informations générales</h2>
-                        <div class="form-group">
-                            <label for="titre">Titre du questionnaire *</label>
-                            <input type="text" id="titre" name="titre" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea id="description" name="description" rows="3"
-                                placeholder="Décrivez l'objectif de ce questionnaire..."></textarea>
-                        </div>
-                    </div>
-
-                    <!-- Questions -->
-                    <div class="form-section">
-                        <h2>Questions</h2>
-                        <div id="questions-container"></div>
-                        <button type="button" class="btn-secondary" onclick="addQuestion()">
-                            + Ajouter une question
-                        </button>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="submit" class="btn-primary">Enregistrer le questionnaire</button>
-                        <a href="mes-quiz.php" class="btn-secondary">Annuler</a>
-                    </div>
-                </form>
             </div>
-        </main>
+
+            <form class="quiz-form" method="POST" action="save-quiz.php">
+                <!-- Informations générales -->
+                <section>
+                    <h2>Informations générales</h2>
+                    <div class="form-group">
+                        <label for="titre">Titre du questionnaire *</label>
+                        <input type="text" id="titre" name="titre" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" 
+                                placeholder="Décrivez l'objectif de ce questionnaire..."></textarea>
+                    </div>
+                </section>
+
+                <!-- Questions -->
+                <section class="questions-section">
+                    <h2>Questions</h2>
+                    <div id="questions-container"></div>
+                    
+                    <button type="button" class="btn btn-secondary" onclick="addQuestion()">
+                        + Ajouter une question
+                    </button>
+                </section>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Enregistrer le questionnaire</button>
+                    <a href="index.php" class="btn btn-secondary">Annuler</a>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script>
     let questionCount = 0;
-    
+
     function addQuestion() {
         const container = document.getElementById('questions-container');
-        const questionDiv = document.createElement('div');
-        questionDiv.className = 'question-block';
-        questionDiv.innerHTML = `
+        const questionBlock = document.createElement('div');
+        questionBlock.className = 'question-block';
+        questionBlock.innerHTML = `
             <div class="form-group">
                 <label>Question ${questionCount + 1}</label>
-                <input type="text" name="questions[${questionCount}][texte]" required
-                       placeholder="Saisissez votre question...">
+                <input type="text" name="questions[${questionCount}][texte]" required>
             </div>
             <div class="form-group">
                 <label>Type de réponse</label>
@@ -150,78 +97,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <option value="text">Réponse libre</option>
                 </select>
             </div>
-            <div id="options-container-${questionCount}" class="options-container" style="display: none;">
-                <!-- Les options seront ajoutées ici dynamiquement -->
-            </div>
-            <button type="button" class="btn-danger btn-small" onclick="removeQuestion(this)">
+            <div id="options-container-${questionCount}"></div>
+            <button type="button" class="btn btn-secondary" onclick="removeQuestion(this)">
                 Supprimer la question
             </button>
         `;
-        container.appendChild(questionDiv);
+        container.appendChild(questionBlock);
         questionCount++;
     }
 
-    function handleQuestionType(select, questionId) {
-        const optionsContainer = document.getElementById(`options-container-${questionId}`);
+    function handleQuestionType(select, questionIndex) {
+        const optionsContainer = document.getElementById(`options-container-${questionIndex}`);
         optionsContainer.innerHTML = '';
 
-        switch(select.value) {
-            case 'qcm':
-                optionsContainer.style.display = 'block';
-                optionsContainer.innerHTML = `
-                    <div class="form-group">
-                        <label>Options de réponse</label>
-                        <div class="options-list" id="options-list-${questionId}">
-                            <input type="text" name="questions[${questionId}][options][]" 
-                                   placeholder="Option 1" required>
-                        </div>
-                        <button type="button" class="btn-secondary btn-small" 
-                                onclick="addOption(${questionId})">
-                            + Ajouter une option
-                        </button>
-                    </div>
-                `;
-                break;
-            case 'text':
-                optionsContainer.style.display = 'block';
-                optionsContainer.innerHTML = `
-                    <div class="form-group">
-                        <label>Texte d'aide (placeholder)</label>
-                        <input type="text" name="questions[${questionId}][placeholder]"
-                               placeholder="Ex: Donnez votre avis...">
-                    </div>
-                `;
-                break;
-            default:
-                optionsContainer.style.display = 'none';
+        if (select.value === 'qcm') {
+            addOptionField(optionsContainer, questionIndex);
         }
     }
 
-    function addOption(questionId) {
-        const optionsList = document.getElementById(`options-list-${questionId}`);
-        const newOption = document.createElement('input');
-        newOption.type = 'text';
-        newOption.name = `questions[${questionId}][options][]`;
-        newOption.placeholder = `Option ${optionsList.children.length + 1}`;
-        newOption.required = true;
-        optionsList.appendChild(newOption);
+    function addOptionField(container, questionIndex) {
+        const optionBlock = document.createElement('div');
+        optionBlock.className = 'form-group';
+        optionBlock.innerHTML = `
+            <input type="text" name="questions[${questionIndex}][options][]" placeholder="Option" required>
+            <button type="button" class="btn btn-secondary" onclick="removeOption(this)">
+                Supprimer l'option
+            </button>
+        `;
+        container.appendChild(optionBlock);
+
+        const addMoreButton = container.querySelector('.add-more-options');
+        if (!addMoreButton) {
+            const addButton = document.createElement('button');
+            addButton.type = 'button';
+            addButton.className = 'btn btn-secondary add-more-options';
+            addButton.textContent = '+ Ajouter une option';
+            addButton.onclick = () => addOptionField(container, questionIndex);
+            container.appendChild(addButton);
+        }
+    }
+
+    function removeOption(button) {
+        button.parentElement.remove();
     }
 
     function removeQuestion(button) {
         button.parentElement.remove();
-        updateQuestionNumbers();
+        questionCount--;
+        updateQuestionLabels();
     }
 
-    function updateQuestionNumbers() {
+    function updateQuestionLabels() {
         const questions = document.querySelectorAll('.question-block');
         questions.forEach((question, index) => {
             question.querySelector('label').textContent = `Question ${index + 1}`;
         });
-        questionCount = questions.length;
     }
-
-    // Ajouter une première question au chargement
-    document.addEventListener('DOMContentLoaded', addQuestion);
     </script>
 </body>
 </html>

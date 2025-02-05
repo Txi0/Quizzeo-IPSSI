@@ -1,0 +1,287 @@
+/* assets/css/dashboard-entreprise.css */
+:root {
+    --primary-color: #009688;
+    --secondary-color: #00796B;
+    --background-color: #F5F5F5;
+    --text-color: #333333;
+    --border-color: #E0E0E0;
+    --success-color: #4CAF50;
+    --warning-color: #FFC107;
+    --danger-color: #F44336;
+}
+
+/* Layout de base */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background-color: white;
+    padding: 1.5rem;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo-img {
+    max-width: 120px;
+    margin-bottom: 1rem;
+}
+
+.company-name {
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.user-info {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.user-role {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu li {
+    margin-bottom: 0.5rem;
+}
+
+.menu a {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.menu li.active a {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.menu a:hover {
+    background-color: #E8F5E9;
+    color: var(--primary-color);
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    background-color: var(--background-color);
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 1.75rem;
+}
+
+/* Stats Cards */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.stat-icon {
+    font-size: 2rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background-color: #E8F5E9;
+    color: var(--primary-color);
+}
+
+.stat-info {
+    flex: 1;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.875rem;
+    color: #666666;
+    margin-bottom: 0.25rem;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+/* Questionnaires Grid */
+.recent-questionnaires {
+    margin-top: 2rem;
+}
+
+.recent-questionnaires h2 {
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.questionnaires-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.questionnaire-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.questionnaire-header {
+    padding: 1.25rem;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.questionnaire-header h3 {
+    margin: 0;
+    font-size: 1.125rem;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.questionnaire-body {
+    padding: 1.25rem;
+}
+
+.description {
+    color: #666666;
+    font-size: 0.875rem;
+    margin: 0 0 1rem 0;
+}
+
+.questionnaire-info {
+    display: flex;
+    gap: 1rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #666666;
+}
+
+.icon {
+    font-size: 1.25rem;
+}
+
+.questionnaire-footer {
+    padding: 1.25rem;
+    border-top: 1px solid var(--border-color);
+    text-align: right;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+}
+
+.btn-secondary {
+    background-color: #E8F5E9;
+    color: var(--primary-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #C8E6C9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .main-content {
+        padding: 1rem;
+    }
+
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+
+    .questionnaires-grid {
+        grid-template-columns: 1fr;
+    }
+}
