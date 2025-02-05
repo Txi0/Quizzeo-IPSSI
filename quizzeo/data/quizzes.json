@@ -1,0 +1,25 @@
+[
+    {
+        "id": "67a38fb8a3f26",
+        "user_id": "67a38f9eef676",
+        "titre": "test",
+        "description": "",
+        "type": "examen",
+        "questions": [
+            {
+                "id": "67a38fb8a3f31",
+                "texte": "bonjour",
+                "points": 1,
+                "options": [
+                    "a",
+                    "b"
+                ],
+                "reponse_correcte": "0"
+            }
+        ],
+        "status": "d\u00e9sactiv\u00e9",
+        "nb_reponses": 0,
+        "created_at": "2025-02-05 17:20:08",
+        "points_total": 1
+    }
+]
