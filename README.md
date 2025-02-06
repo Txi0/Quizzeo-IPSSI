@@ -1,6 +1,6 @@
 # Quizzeo - Plateforme de Quiz en Ligne
 
-![Logo Quizzeo](logo.png)
+
 
 ## Présentation
 
@@ -53,8 +53,13 @@ Quizzeo est une plateforme web permettant la création et la gestion de quiz en 
 
 2. **Déploiement du Projet**
    ```bash
-   # Clonage du repository
-   git clone https://github.com/votre-username/Quizzeo-IPSSI.git
+  
+   # Visitez le repository GitHub du projet Quizzeo
+    Téléchargez le code source au format ZIP
+    Décompressez le "Quizzeo-IPSSI-main" fichier ZIP
+    Extraie le fichier ZIP
+    Renommer le fichier "Quizzeo-IPSSI-main" avec "Quizzeo-IPSSI"
+    Copiez le dossier "Quizzeo-IPSSI" dans le répertoire C:\xampp\htdocs
 
    # Déploiement dans le répertoire web
    mv Quizzeo-IPSSI C:/xampp/htdocs/
@@ -63,7 +68,7 @@ Quizzeo est une plateforme web permettant la création et la gestion de quiz en 
 3. **Configuration du Serveur**
    - Lancement du panneau de contrôle XAMPP
    - Activation du service Apache
-   - Accès via `http://localhost/Quizzeo-IPSSI/`
+   - Accès via `http://localhost/Quizzeo-IPSSI/quizzeo/pages/login.php`
 
 ## Architecture Technique
 
@@ -87,28 +92,6 @@ Quizzeo est une plateforme web permettant la création et la gestion de quiz en 
 - Gestion sécurisée des sessions
 - Validation des données entrantes
 
-## Documentation
-
-### Structure du Projet
-
-Le projet est organisé selon l'architecture suivante :
-```
-Quizzeo/
-├── docs/
-│   ├── installation.md
-│   ├── user-guide.md
-│   └── technical-specs.md
-├── src/
-│   ├── controllers/
-│   ├── models/
-│   └── views/
-├── public/
-│   ├── css/
-│   ├── js/
-│   └── assets/
-└── README.md
-```
-
 ### Documentation Disponible
 
 - Guide d'installation détaillé
@@ -120,9 +103,9 @@ Quizzeo/
 
 ### Standards de Code
 
-- PSR-12 pour PHP
-- ESLint pour JavaScript
-- Validation W3C pour HTML/CSS
+- PHP
+- JavaScript
+- HTML/CSS
 
 ### Contribution
 
@@ -139,21 +122,11 @@ Quizzeo/
 - Validation des formulaires
 - Tests de compatibilité navigateurs
 
-## Support et Contact
-
-Pour toute question ou assistance :
-- Documentation : `/docs`
-- Issues GitHub : [Lien vers les issues]
-- Contact : [Adresse email]
-
-## Licence
-
-Ce projet est distribué sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
-
 ## Équipe de Développement
 
-- [Nom du développeur principal]
-- [Autres contributeurs]
+- Mounir
+- Marwan
+- Matteo
 
 ---
 Projet développé dans le cadre de la formation IPSSI
