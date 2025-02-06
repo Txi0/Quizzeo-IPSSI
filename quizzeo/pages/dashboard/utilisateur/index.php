@@ -43,14 +43,21 @@ foreach ($userResponses as $response) {
             --secondary-color: #7C3AED;
             --background-color: #F3F4F6;
             --text-color: #1F2937;
+            --white: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+            font-family: 'Arial', sans-serif;
             background-color: var(--background-color);
             color: var(--text-color);
+            line-height: 1.6;
         }
 
         .dashboard-container {
@@ -58,17 +65,31 @@ foreach ($userResponses as $response) {
             min-height: 100vh;
         }
 
+        /* Sidebar */
         .sidebar {
             width: 250px;
-            background: white;
+            background: var(--white);
             padding: 20px;
             box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            border-right: 1px solid var(--border-color);
+        }
+
+        .user-info {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .user-info h3 {
+            color: var(--primary-color);
+            font-size: 18px;
         }
 
         .main-content {
             flex: 1;
-            padding: 20px;
-            position: relative;
+            padding: 30px;
+            background-color: var(--background-color);
         }
 
         .header {
@@ -76,9 +97,16 @@ foreach ($userResponses as $response) {
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
         }
 
-        /* Profile Dropdown Styles */
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 24px;
+        }
+
+        /* Profile Dropdown */
         .profile-actions {
             position: relative;
         }
@@ -99,11 +127,12 @@ foreach ($userResponses as $response) {
             position: absolute;
             top: 100%;
             right: 0;
-            background: white;
+            background: var(--white);
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             z-index: 1000;
             min-width: 200px;
+            border: 1px solid var(--border-color);
         }
 
         .profile-dropdown.show {
@@ -117,10 +146,15 @@ foreach ($userResponses as $response) {
             text-decoration: none;
             color: var(--text-color);
             transition: background-color 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
         }
 
         .dropdown-item:hover {
-            background-color: #F3F4F6;
+            background-color: rgba(139, 92, 246, 0.1);
         }
 
         .dropdown-item i {
@@ -128,78 +162,86 @@ foreach ($userResponses as $response) {
             color: var(--primary-color);
         }
 
+        /* Menu */
+        .menu {
+            list-style-type: none;
+        }
+
+        .menu li a {
+            display: block;
+            padding: 10px 15px;
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .menu li a:hover,
+        .menu li a.active {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        /* Quiz Input */
         .quiz-input {
-            background: white;
-            padding: 20px;
+            background: var(--white);
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
             margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         .quiz-input input {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
-            border: 1px solid #E5E7EB;
-            border-radius: 6px;
-        }
-
-        .responses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .response-card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .success-message {
-            background: #DEF7EC;
-            color: #03543F;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
         }
 
         .btn-primary {
             background: var(--primary-color);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 6px;
-            text-decoration: none;
-            display: inline-block;
+            color: var(--white);
+            padding: 10px 15px;
             border: none;
+            border-radius: 4px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
         }
 
-        .menu {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0;
+        .btn-primary:hover {
+            background: var(--secondary-color);
         }
 
-        .menu li a {
-            display: block;
-            padding: 10px;
-            color: var(--text-color);
-            text-decoration: none;
-            border-radius: 6px;
+        /* Responses Grid */
+        .responses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
         }
 
-        .menu li a:hover,
-        .menu li a.active {
-            background: var(--primary-color);
-            color: white;
+        .response-card {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .response-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .response-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
         }
 
         .score {
             font-size: 1.2em;
             font-weight: bold;
-            color: var(--primary-color);
+            color: var(--secondary-color);
             margin: 10px 0;
         }
 
@@ -207,27 +249,56 @@ foreach ($userResponses as $response) {
             color: #6B7280;
             font-size: 0.9em;
         }
+
+        .success-message {
+            background: #DEF7EC;
+            color: #03543F;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .sidebar .menu {
+                display: flex;
+                justify-content: space-around;
+            }
+
+            .responses-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="dashboard-container">
         <!-- Sidebar -->
         <nav class="sidebar">
- 
             <div class="user-info">
-                <h3><?php echo htmlspecialchars($_SESSION['user']['nom'] . ' ' . $_SESSION['user']['prenom']); ?></h3>
+                <h3>👤 <?php echo htmlspecialchars($_SESSION['user']['nom'] . ' ' . $_SESSION['user']['prenom']); ?></h3>
             </div>
             <ul class="menu">
-                <li><a href="index.php" class="active">Tableau de bord</a></li>
-                <li><a href="historique.php">Historique</a></li>
-                <li><a href="../../../logout.php">Déconnexion</a></li>
+                <li><a href="index.php" class="active">📊 Tableau de bord</a></li>
+                <li><a href="historique.php">📜 Historique</a></li>
+                <li><a href="../../../logout.php">🚪 Déconnexion</a></li>
             </ul>
         </nav>
 
         <!-- Main Content -->
         <main class="main-content">
             <div class="header">
-                <h1>Tableau de bord</h1>
+                <h1>🏠 Tableau de bord</h1>
                 <div class="profile-actions">
                     <div class="profile-icon" onclick="toggleProfileMenu()">
                         <i class="fas fa-user-circle"></i>
@@ -245,35 +316,38 @@ foreach ($userResponses as $response) {
 
             <?php if (isset($_GET['success'])): ?>
                 <div class="success-message">
-                    Vos réponses ont été enregistrées avec succès !
+                    ✅ Vos réponses ont été enregistrées avec succès !
                 </div>
             <?php endif; ?>
 
             <!-- Input pour le lien du quiz -->
             <div class="quiz-input">
-                <h2>Répondre à un questionnaire</h2>
+                <h2>🔍 Répondre à un questionnaire</h2>
                 <form action="../../../repondre.php" method="GET">
-                    <input type="text" name="token" placeholder="Collez le token du questionnaire ici">
-                    <button type="submit" class="btn-primary">Accéder au questionnaire</button>
+                    <input type="text" name="token" placeholder="Collez le token du questionnaire ici 🔑">
+                    <button type="submit" class="btn-primary">Accéder au questionnaire 📝</button>
                 </form>
             </div>
 
             <!-- Réponses récentes -->
-            <h2>Vos réponses récentes</h2>
+            <h2>📋 Vos réponses récentes</h2>
             <div class="responses-grid">
                 <?php if (empty($reponseDetails)): ?>
-                    <p>Vous n'avez pas encore de réponses à des questionnaires.</p>
+                    <div class="response-card">
+                        <p>🌱 Vous n'avez pas encore de réponses à des questionnaires.</p>
+                        <p>Commencez par répondre à un quiz !</p>
+                    </div>
                 <?php else: ?>
                     <?php foreach ($reponseDetails as $detail): ?>
                         <div class="response-card">
-                            <h3><?php echo htmlspecialchars($detail['quiz']['titre']); ?></h3>
+                            <h3>📋 <?php echo htmlspecialchars($detail['quiz']['titre']); ?></h3>
                             <?php if (isset($detail['reponse']['score'])): ?>
                                 <div class="score">
-                                    Score : <?php echo $detail['reponse']['score']; ?> / <?php echo $detail['quiz']['points_total']; ?>
+                                    🏆 Score : <?php echo $detail['reponse']['score']; ?> / <?php echo $detail['quiz']['points_total']; ?>
                                 </div>
                             <?php endif; ?>
                             <div class="date">
-                                Répondu le <?php echo date('d/m/Y à H:i', strtotime($detail['reponse']['date'])); ?>
+                                📅 Répondu le <?php echo date('d/m/Y à H:i', strtotime($detail['reponse']['date'])); ?>
                             </div>
                         </div>
                     <?php endforeach; ?>
