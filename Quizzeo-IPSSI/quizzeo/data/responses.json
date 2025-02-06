@@ -1,0 +1,162 @@
+[
+    {
+        "id": "67a404612588c",
+        "quiz_id": "67a402f8dd368",
+        "user_id": "67a3d672e551d",
+        "user_name": "zebi zebilamouche",
+        "reponses": [
+            "0"
+        ],
+        "date": "2025-02-06 01:37:53"
+    },
+    {
+        "id": "67a4046a6f170",
+        "quiz_id": "67a402f8dd368",
+        "user_id": "67a3d672e551d",
+        "user_name": "zebi zebilamouche",
+        "reponses": [
+            "1"
+        ],
+        "date": "2025-02-06 01:38:02"
+    },
+    {
+        "id": "67a404fe66562",
+        "quiz_id": "67a402f8dd368",
+        "user_id": "67a3d672e551d",
+        "user_name": "zebi zebilamouche",
+        "reponses": [
+            "0"
+        ],
+        "date": "2025-02-06 01:40:30"
+    },
+    {
+        "id": "67a4050262331",
+        "quiz_id": "67a402f8dd368",
+        "user_id": "67a3d672e551d",
+        "user_name": "zebi zebilamouche",
+        "reponses": [
+            "1"
+        ],
+        "date": "2025-02-06 01:40:34"
+    },
+    {
+        "id": "67a40a3593f17",
+        "quiz_id": "67a409e557ecf",
+        "user_id": "67a3b8a9913e7",
+        "user_name": "El Mouns",
+        "reponses": [
+            "0"
+        ],
+        "date": "2025-02-06 02:02:45"
+    },
+    {
+        "id": "67a40addf003b",
+        "quiz_id": "67a409e557ecf",
+        "user_id": "67a3b8a9913e7",
+        "user_name": "El Mouns",
+        "reponses": [
+            "1"
+        ],
+        "date": "2025-02-06 02:05:33"
+    },
+    {
+        "id": "67a40b6f3a436",
+        "quiz_id": "67a40afdd404c",
+        "user_id": "67a3d672e551d",
+        "user_name": "zebi zebilamouche",
+        "reponses": [
+            "0"
+        ],
+        "date": "2025-02-06 02:07:59"
+    },
+    {
+        "id": "67a411b17f64b",
+        "quiz_id": "67a40afdd404c",
+        "user_id": "67a3b8a9913e7",
+        "user_name": "El Mouns",
+        "reponses": [
+            "1"
+        ],
+        "date": "2025-02-06 02:34:41"
+    },
+    {
+        "id": "67a4132d522d2",
+        "quiz_id": "67a40afdd404c",
+        "user_id": "67a3d672e551d",
+        "user_name": "zebi zebilamouche",
+        "reponses": [
+            "2"
+        ],
+        "date": "2025-02-06 02:41:01"
+    },
+    {
+        "id": "67a4137d4520c",
+        "quiz_id": "67a40afdd404c",
+        "user_id": "67a3d672e551d",
+        "user_name": "zebi zebilamouche",
+        "reponses": [
+            "1"
+        ],
+        "date": "2025-02-06 02:42:21"
+    },
+    {
+        "id": "67a413a65859e",
+        "quiz_id": "67a40afdd404c",
+        "user_id": "67a3d672e551d",
+        "user_name": "zebi zebilamouche",
+        "reponses": [
+            "1"
+        ],
+        "date": "2025-02-06 02:43:02"
+    },
+    {
+        "id": "67a413c2abbf6",
+        "quiz_id": "67a40afdd404c",
+        "user_id": "67a3d672e551d",
+        "user_name": "zebi zebilamouche",
+        "reponses": [
+            "1"
+        ],
+        "date": "2025-02-06 02:43:30"
+    },
+    {
+        "id": "67a413ebd4c1a",
+        "quiz_id": "67a40afdd404c",
+        "user_id": "67a3d672e551d",
+        "user_name": "zebi zebilamouche",
+        "reponses": [
+            "0"
+        ],
+        "date": "2025-02-06 02:44:11"
+    },
+    {
+        "id": "67a41666d1a98",
+        "quiz_id": "67a415c1d7c90",
+        "user_id": "67a3d672e551d",
+        "user_name": "zebi zebilamouche",
+        "reponses": [
+            "0"
+        ],
+        "date": "2025-02-06 02:54:46"
+    },
+    {
+        "id": "67a42c226b552",
+        "quiz_id": "67a42af717273",
+        "user_id": "67a3b6fa89420",
+        "user_name": "el gacem Mounir",
+        "reponses": [
+            "0"
+        ],
+        "date": "2025-02-06 04:27:30"
+    },
+    {
+        "id": "67a4314a14b76",
+        "quiz_id": "67a4314200870",
+        "user_id": "67a3b8a9913e7",
+        "user_name": "El Mouns",
+        "reponses": [
+            "1"
+        ],
+        "date": "2025-02-06 04:49:30"
+    }
+]
