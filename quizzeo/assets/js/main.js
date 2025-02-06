@@ -63,3 +63,44 @@ function addOption(index) {
 function removeQuestion(button) {
     button.parentElement.remove();
 }
+
+// Ajouter dans la partie script
+document.getElementById('quizForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Validation du formulaire
+    const titre = document.getElementById('titre').value.trim();
+    if (!titre) {
+        alert('Le titre du quiz est obligatoire');
+        return;
+    }
+
+    const questions = document.querySelectorAll('.question-block');
+    if (questions.length === 0) {
+        alert('Vous devez ajouter au moins une question');
+        return;
+    }
+
+    // Vérification des questions QCM
+    let isValid = true;
+    questions.forEach((question, index) => {
+        const typeSelect = question.querySelector('select[name^="questions"][name$="[type]"]');
+        if (typeSelect.value === 'qcm') {
+            const options = question.querySelectorAll('input[name^="questions"][name$="[options][]"]');
+            const reponseCorrect = question.querySelector('input[type="radio"]:checked');
+            
+            if (options.length < 2) {
+                alert(`La question ${index + 1} doit avoir au moins 2 options`);
+                isValid = false;
+            }
+            if (!reponseCorrect) {
+                alert(`Veuillez sélectionner une réponse correcte pour la question ${index + 1}`);
+                isValid = false;
+            }
+        }
+    });
+
+    if (isValid) {
+        this.submit();
+    }
+});

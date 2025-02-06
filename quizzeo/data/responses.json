@@ -1,1 +1,74 @@
-[]
+[
+    {
+        "id": "67a530374e82d",
+        "quiz_id": "67a4bc0caae11",
+        "user_id": "67a4b8f62e9c5",
+        "user_name": "El Gacem Mounir",
+        "reponses": [
+            "0",
+            "0",
+            "0"
+        ],
+        "date": "2025-02-06 22:57:11"
+    },
+    {
+        "id": "67a531adcb125",
+        "quiz_id": "67a4bc0caae11",
+        "user_id": "67a4b90beca7a",
+        "user_name": "Montaggioni  Matteo",
+        "reponses": [
+            "0",
+            "0",
+            "0"
+        ],
+        "score": 1,
+        "score_max": 3,
+        "pourcentage": 33.3,
+        "date": "2025-02-06 23:03:25"
+    },
+    {
+        "id": "67a531b26b179",
+        "quiz_id": "67a4bc0caae11",
+        "user_id": "67a4b90beca7a",
+        "user_name": "Montaggioni  Matteo",
+        "reponses": [
+            "0",
+            "0",
+            "2"
+        ],
+        "score": 2,
+        "score_max": 3,
+        "pourcentage": 66.7,
+        "date": "2025-02-06 23:03:30"
+    },
+    {
+        "id": "67a5336d9cfa1",
+        "quiz_id": "67a4bc0caae11",
+        "user_id": "67a4b90beca7a",
+        "user_name": "Montaggioni  Matteo",
+        "reponses": [
+            "0",
+            "0",
+            "0"
+        ],
+        "score": 1,
+        "score_max": 3,
+        "pourcentage": 33.3,
+        "date": "2025-02-06 23:10:53"
+    },
+    {
+        "id": "67a5337257f5f",
+        "quiz_id": "67a4bc0caae11",
+        "user_id": "67a4b90beca7a",
+        "user_name": "Montaggioni  Matteo",
+        "reponses": [
+            "2",
+            "2",
+            "0"
+        ],
+        "score": 0,
+        "score_max": 3,
+        "pourcentage": 0,
+        "date": "2025-02-06 23:10:58"
+    }
+]

@@ -3,46 +3,80 @@
 session_start();
 require_once '../../../includes/auth.php';
 
-// Vérification du rôle
-if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'entreprise') {
-    header('Location: ../../login.php');
-    exit;
+// Au début du fichier, après les require
+$quizzesFile = 'quizzes.json';
+if (!file_exists($quizzesFile)) {
+    file_put_contents($quizzesFile, '[]');
+}
+if (!is_writable($quizzesFile)) {
+    die('Erreur : Le fichier quizzes.json n\'est pas accessible en écriture');
 }
 
-// Traitement de la création du quiz
+// Dans la partie traitement POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $quizDb = new JsonDatabase('quizzes.json');
-    
-    $quiz = [
-        'id' => uniqid(),
-        'user_id' => $_SESSION['user']['id'],
-        'titre' => $_POST['titre'],
-        'description' => $_POST['description'],
-        'questions' => [],
-        'status' => 'en cours d\'écriture',
-        'created_at' => date('Y-m-d H:i:s'),
-        'points_total' => 0,
-        'type_reponses' => $_POST['type_reponses'], // Nouveau champ pour le type de réponses
-        'objectif' => $_POST['objectif'] // Nouveau champ spécifique à l'entreprise
-    ];
+    try {
+        $quizDb = new JsonDatabase('quizzes.json');
+        
+        // Validation des données
+        if (empty($_POST['titre'])) {
+            throw new Exception('Le titre est obligatoire');
+        }
+        
+        if (empty($_POST['questions'])) {
+            throw new Exception('Au moins une question est requise');
+        }
 
-    foreach ($_POST['questions'] as $questionData) {
-        $question = [
+        $quiz = [
             'id' => uniqid(),
-            'texte' => $questionData['texte'],
-            'points' => (int)$questionData['points'],
-            'type' => $questionData['type'], // type de question (QCM ou libre)
-            'competence' => $questionData['competence'] ?? '', // Nouvelle métadonnée
-            'options' => $questionData['type'] === 'qcm' ? $questionData['options'] : [],
-            'reponse_correcte' => $questionData['type'] === 'qcm' ? $questionData['reponse_correcte'] : null
+            'user_id' => $_SESSION['user']['id'],
+            'titre' => htmlspecialchars($_POST['titre']),
+            'description' => htmlspecialchars($_POST['description']),
+            'questions' => [],
+            'status' => 'en cours d\'écriture',
+            'created_at' => date('Y-m-d H:i:s'),
+            'points_total' => 0,
+            'type_reponses' => $_POST['type_reponses'],
+            'objectif' => htmlspecialchars($_POST['objectif'])
         ];
-        $quiz['points_total'] += $question['points'];
-        $quiz['questions'][] = $question;
-    }
 
-    if ($quizDb->insert($quiz)) {
-        header('Location: mes-quiz.php?success=1');
+        foreach ($_POST['questions'] as $questionData) {
+            // Validation de la question
+            if (empty($questionData['texte'])) {
+                throw new Exception('Le texte de la question est obligatoire');
+            }
+
+            $question = [
+                'id' => uniqid(),
+                'texte' => htmlspecialchars($questionData['texte']),
+                'points' => (int)$questionData['points'],
+                'type' => $questionData['type'],
+                'competence' => isset($questionData['competence']) ? htmlspecialchars($questionData['competence']) : '',
+                'options' => [],
+                'reponse_correcte' => null
+            ];
+
+            if ($questionData['type'] === 'qcm') {
+                if (empty($questionData['options'])) {
+                    throw new Exception('Les options sont requises pour une question QCM');
+                }
+                $question['options'] = array_map('htmlspecialchars', $questionData['options']);
+                $question['reponse_correcte'] = $questionData['reponse_correcte'];
+            }
+
+            $quiz['points_total'] += $question['points'];
+            $quiz['questions'][] = $question;
+        }
+
+        if (!$quizDb->insert($quiz)) {
+            throw new Exception('Erreur lors de la sauvegarde du quiz');
+        }
+
+        $_SESSION['success'] = "Le quiz a été créé avec succès !";
+        header('Location: mes-quiz.php');
         exit;
+
+    } catch (Exception $e) {
+        $_SESSION['error'] = $e->getMessage();
     }
 }
 

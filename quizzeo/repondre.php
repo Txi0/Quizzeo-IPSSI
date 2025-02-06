@@ -1,63 +1,95 @@
 <?php
-// repondre.php
 session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 require_once 'includes/auth.php';
 
-// Vérification qu'un token est fourni
-$token = $_GET['token'] ?? '';
-if (empty($token)) {
-    die("Lien invalide ou expiré");
-}
-
-// Récupération du quiz
-$quizDb = new JsonDatabase('quizzes.json');
-$allQuizzes = $quizDb->getAll();
-$quiz = null;
-
-// Chercher le quiz correspondant au token
-foreach ($allQuizzes as $q) {
-    if (isset($q['share_token']) && $q['share_token'] === $token && $q['status'] === 'lancé') {
-        $quiz = $q;
-        break;
+try {
+    // Vérification du token
+    $token = $_GET['token'] ?? '';
+    if (empty($token)) {
+        throw new Exception("Lien invalide ou expiré");
     }
-}
 
-// Vérifier si le quiz existe
-if (!$quiz) {
-    die("Ce quiz n'est pas disponible actuellement");
-}
+    // Initialisation de la base de données
+    if (!class_exists('JsonDatabase')) {
+        throw new Exception("Erreur de configuration: JsonDatabase non disponible");
+    }
 
-// Vérifier si l'utilisateur est connecté
-if (!isset($_SESSION['user'])) {
-    // Sauvegarder l'URL pour rediriger après la connexion
-    $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
-    header('Location: pages/login.php');
-    exit;
-}
+    $quizDb = new JsonDatabase('quizzes.json');
+    $quiz = null;
 
-// Traitement de la soumission
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponses'])) {
-    $responsesDb = new JsonDatabase('responses.json');
-    
-    // Créer la réponse
-    $response = [
-        'id' => uniqid(),
-        'quiz_id' => $quiz['id'],
-        'user_id' => $_SESSION['user']['id'],
-        'user_name' => $_SESSION['user']['nom'] . ' ' . $_SESSION['user']['prenom'],
-        'reponses' => $_POST['reponses'],
-        'date' => date('Y-m-d H:i:s')
-    ];
+    // Recherche du quiz correspondant au token
+    $allQuizzes = $quizDb->getAll();
+    foreach ($allQuizzes as $q) {
+        if (isset($q['share_token']) && $q['share_token'] === $token && $q['status'] === 'lancé') {
+            $quiz = $q;
+            break;
+        }
+    }
 
-    // Sauvegarder la réponse
-    if ($responsesDb->insert($response)) {
-        // Mettre à jour le nombre de réponses du quiz
+    if (!$quiz) {
+        throw new Exception("Quiz non trouvé ou non disponible");
+    }
+
+    // Traitement du formulaire soumis
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponses'])) {
+        $responsesDb = new JsonDatabase('responses.json');
+        
+        // Calcul du score
+        $score = 0;
+        $maxScore = 0;
+        
+        foreach ($quiz['questions'] as $index => $question) {
+            $maxScore += $question['points'];
+            $reponseUtilisateur = $_POST['reponses'][$index] ?? null;
+            
+            if ($reponseUtilisateur !== null && isset($question['reponse_correcte'])) {
+                if ((int)$reponseUtilisateur === (int)$question['reponse_correcte']) {
+                    $score += $question['points'];
+                }
+            }
+        }
+        
+        $pourcentage = ($maxScore > 0) ? round(($score / $maxScore) * 100, 1) : 0;
+        
+        // Enregistrement de la réponse
+        $response = [
+            'id' => uniqid(),
+            'quiz_id' => $quiz['id'],
+            'user_id' => $_SESSION['user']['id'],
+            'user_name' => $_SESSION['user']['nom'] . ' ' . $_SESSION['user']['prenom'],
+            'reponses' => $_POST['reponses'],
+            'score' => $score,
+            'score_max' => $maxScore,
+            'pourcentage' => $pourcentage,
+            'date' => date('Y-m-d H:i:s')
+        ];
+
+        if (!$responsesDb->insert($response)) {
+            throw new Exception("Erreur lors de l'enregistrement des réponses");
+        }
+
+        // Mise à jour du compteur de réponses du quiz
         $quiz['nb_reponses'] = ($quiz['nb_reponses'] ?? 0) + 1;
         $quizDb->update($quiz['id'], ['nb_reponses' => $quiz['nb_reponses']]);
-        
-        header('Location: http://localhost/Quizzeo-IPSSI/quizzeo/pages/dashboard/utilisateur/index.php');
+
+        // Stockage du résultat dans la session
+        $_SESSION['last_quiz_result'] = [
+            'quiz_titre' => $quiz['titre'],
+            'score' => $score,
+            'score_max' => $maxScore,
+            'pourcentage' => $pourcentage
+        ];
+
+        // Redirection vers le dashboard avec le résultat
+        header('Location: pages/dashboard/utilisateur/index.php?quiz_complete=1');
         exit;
     }
+
+} catch (Exception $e) {
+    die("Erreur : " . $e->getMessage());
 }
 ?>
 
@@ -66,113 +98,149 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponses'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($quiz['titre']); ?> - Quizzeo</title>
+    <title><?php echo htmlspecialchars($quiz['titre']); ?></title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+        :root {
+            --primary: #6C5CE7;
+            --secondary: #a29bfe;
+            --bg-light: #F8F7FF;
+            --text: #2D3436;
+            --border: #E2E8F0;
+        }
+
+        * {
             margin: 0;
-            padding: 20px;
-            background-color: #f3f4f6;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 2rem;
         }
 
         .quiz-container {
             max-width: 800px;
             margin: 0 auto;
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        h1 {
-            color: #1f2937;
-            margin-bottom: 20px;
+        .quiz-title {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
         }
 
         .question {
-            background: #f9fafb;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 6px;
-            border: 1px solid #e5e7eb;
+            background: var(--bg-light);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
         }
 
         .question-text {
-            font-weight: bold;
-            margin-bottom: 15px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
         }
 
         .options {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 0.8rem;
         }
 
         .option {
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-
-        input[type="radio"] {
-            margin: 0;
-        }
-
-        label {
-            margin: 0;
+            padding: 1rem;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
             cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option:hover {
+            border-color: var(--primary);
+            background: var(--bg-light);
+        }
+
+        .option input[type="radio"] {
+            margin-right: 1rem;
         }
 
         .submit-button {
-            background-color: #8b5cf6;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
             width: 100%;
-            font-size: 16px;
-            margin-top: 20px;
+            padding: 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 2rem;
         }
 
         .submit-button:hover {
-            background-color: #7c3aed;
+            background: #5849e0;
         }
     </style>
 </head>
 <body>
     <div class="quiz-container">
-        <h1><?php echo htmlspecialchars($quiz['titre']); ?></h1>
+        <h1 class="quiz-title"><?php echo htmlspecialchars($quiz['titre']); ?></h1>
         
-        <form method="POST" action="">
+        <form method="POST" action="" id="quizForm">
             <?php foreach ($quiz['questions'] as $index => $question): ?>
                 <div class="question">
                     <div class="question-text">
                         <?php echo htmlspecialchars($question['texte']); ?>
                     </div>
-                    
                     <div class="options">
-                        <?php if (isset($question['options'])): ?>
-                            <?php foreach ($question['options'] as $optionIndex => $option): ?>
-                                <div class="option">
-                                    <input type="radio" 
-                                           id="q<?php echo $index; ?>_<?php echo $optionIndex; ?>"
-                                           name="reponses[<?php echo $index; ?>]"
-                                           value="<?php echo $optionIndex; ?>"
-                                           required>
-                                    <label for="q<?php echo $index; ?>_<?php echo $optionIndex; ?>">
-                                        <?php echo htmlspecialchars($option); ?>
-                                    </label>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
+                        <?php foreach ($question['options'] as $optionIndex => $option): ?>
+                            <label class="option">
+                                <input type="radio" 
+                                       name="reponses[<?php echo $index; ?>]" 
+                                       value="<?php echo $optionIndex; ?>" 
+                                       required>
+                                <?php echo htmlspecialchars($option); ?>
+                            </label>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             <?php endforeach; ?>
-
-            <button type="submit" class="submit-button">Soumettre mes réponses</button>
+            
+            <button type="submit" class="submit-button">Valider mes réponses</button>
         </form>
     </div>
+
+    <script>
+    document.getElementById('quizForm').addEventListener('submit', function(e) {
+        const questions = document.querySelectorAll('.question');
+        let allAnswered = true;
+
+        questions.forEach((question, index) => {
+            const radios = question.querySelectorAll('input[type="radio"]:checked');
+            if (radios.length === 0) {
+                allAnswered = false;
+            }
+        });
+
+        if (!allAnswered) {
+            e.preventDefault();
+            alert('Veuillez répondre à toutes les questions.');
+        }
+    });
+    </script>
 </body>
 </html>

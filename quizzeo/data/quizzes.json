@@ -90,10 +90,12 @@
                 "reponse_correcte": "2"
             }
         ],
-        "status": "en cours d'\u00e9criture",
+        "status": "lanc\u00e9",
         "created_at": "2025-02-06 14:41:32",
         "points_total": 3,
         "type_reponses": "qcm",
-        "objectif": ""
+        "objectif": "",
+        "share_token": "2888c96de615588e0bb44d7df7b431fd",
+        "nb_reponses": 5
     }
 ]
