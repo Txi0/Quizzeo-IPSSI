@@ -1,150 +1,99 @@
 [
     {
-        "id": 1,
-        "titre": "hsfghdfgh",
-        "description": "dfghdfghdf",
-        "status": "Inactif",
-        "reponses": 0,
-        "token": "8f57cc50bb0f2f5ede28895516cb17ce"
-    },
-    {
-        "id": 2,
-        "titre": "hdfjdhjghjfgh",
-        "description": "",
-        "status": "Inactif",
-        "reponses": 0,
-        "token": "77450b3ba1a5dabaf15bdae5721df652"
-    },
-    {
-        "id": "67a42af717273",
-        "user_id": "67a3b6fa89420",
-        "titre": "dfQSDFQSDFQSDF",
+        "id": "67a4ba530fdc2",
+        "user_id": "67a4b8d60199b",
+        "titre": "Addition",
         "description": "",
         "questions": [
             {
-                "id": "67a42af7172ac",
-                "texte": "QSDqsd",
-                "points": 1,
-                "type": "qcm",
-                "competence": "R\u00e9solution de probl\u00e8mes",
-                "options": [
-                    "gsdfgsdfg",
-                    "qsdfqsdfqsdf"
-                ],
-                "reponse_correcte": "0"
-            }
-        ],
-        "status": "termin\u00e9",
-        "created_at": "2025-02-06 04:22:31",
-        "points_total": 1,
-        "type_reponses": "libre",
-        "objectif": "QSDFQSDFQSD",
-        "share_token": "cf24968a14a85f9c56c7436fed70827f",
-        "nb_reponses": 1
-    },
-    {
-        "id": "67a42dbf7d09c",
-        "user_id": "67a3b8a9913e7",
-        "titre": "test",
-        "description": "azeazeaze",
-        "questions": [
-            {
-                "id": "67a42dbf7d0a5",
-                "texte": "azeazeazeaze",
+                "id": "67a4ba530fdd0",
+                "texte": "Combien font 5 + 5 ?",
                 "points": 1,
                 "options": [
-                    "azeazeza",
-                    "aaadddddddddddddddddddd"
-                ],
-                "reponse_correcte": "1"
-            }
-        ],
-        "status": "actif",
-        "created_at": "2025-02-06 04:34:23",
-        "points_total": 1,
-        "share_token": "9046afe5d45245dbd14f13534c4c8a0c"
-    },
-    {
-        "id": "67a4314200870",
-        "user_id": "67a3b8a9913e7",
-        "titre": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        "description": "",
-        "questions": [
-            {
-                "id": "67a431420087c",
-                "texte": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "points": 1,
-                "options": [
-                    "aaaaaaaaaaaaaaaaa",
-                    "bbbbbbbbbbbbbbbbbbbbbbb"
-                ],
-                "reponse_correcte": "1"
-            }
-        ],
-        "status": "d\u00e9sactiv\u00e9",
-        "created_at": "2025-02-06 04:49:22",
-        "points_total": 1,
-        "share_token": "ecaf40bfadedfc3774421fa96ebb9a7a",
-        "nb_reponses": 1
-    },
-    {
-        "id": "67a49e6f5fe1d",
-        "user_id": "67a3b6fa89420",
-        "titre": "matteo",
-        "description": "aaaaa",
-        "questions": [
-            {
-                "id": "67a49e6f60031",
-                "texte": "tu pues ?",
-                "points": 1,
-                "type": "qcm",
-                "competence": "Communication",
-                "options": [
-                    "oui",
-                    "non"
+                    "10",
+                    "5",
+                    "-10"
                 ],
                 "reponse_correcte": "0"
             },
             {
-                "id": "67a49e6f60039",
-                "texte": "peut etre ?",
+                "id": "67a4ba530fdd4",
+                "texte": "Combien font 17 + 5 ?",
                 "points": 1,
-                "type": "qcm",
-                "competence": "Communication",
                 "options": [
-                    "non",
-                    "oui"
+                    "50",
+                    "21",
+                    "22"
+                ],
+                "reponse_correcte": "2"
+            },
+            {
+                "id": "67a4ba530fdd5",
+                "texte": "Combien font 76 + 32 ?",
+                "points": 1,
+                "options": [
+                    "84",
+                    "108",
+                    "107"
                 ],
                 "reponse_correcte": "1"
             }
         ],
         "status": "lanc\u00e9",
-        "created_at": "2025-02-06 12:35:11",
-        "points_total": 2,
-        "type_reponses": "mixte",
-        "objectif": "jsp",
-        "share_token": "b7fbeff621134200003cbe45326ce7bf"
+        "created_at": "2025-02-06 14:34:11",
+        "points_total": 3,
+        "share_token": "9d540e3bfafd5c609ed9969d7e9a013f"
     },
     {
-        "id": "67a4a67feed99",
-        "user_id": "67a3b8a9913e7",
-        "titre": "fgdfgsdhfgh",
-        "description": "hdfghdfgh",
+        "id": "67a4bc0caae11",
+        "user_id": "67a4b8f62e9c5",
+        "titre": "Equation",
+        "description": "",
         "questions": [
             {
-                "id": "67a4a67feeda5",
-                "texte": "dfghdfghdfgh",
+                "id": "67a4bc0caae1f",
+                "texte": "R\u00e9soudre l'\u00e9quation  3 \ud835\udc65 + 5 = 20",
                 "points": 1,
+                "type": "qcm",
+                "competence": "R\u00e9solution de probl\u00e8mes",
                 "options": [
-                    "dfghdfgh",
-                    "fghdfghdfghdfgh"
+                    "x=5",
+                    "x=15",
+                    "x=10"
                 ],
                 "reponse_correcte": "0"
+            },
+            {
+                "id": "67a4bc0caae23",
+                "texte": "R\u00e9soudre l'\u00e9quation  2 ( \ud835\udc65 \u2212 4 ) = 12 ",
+                "points": 1,
+                "type": "qcm",
+                "competence": "R\u00e9solution de probl\u00e8mes",
+                "options": [
+                    "x=9",
+                    "x=10",
+                    " \ud835\udc65 = 8 "
+                ],
+                "reponse_correcte": "1"
+            },
+            {
+                "id": "67a4bc0caae24",
+                "texte": "x\u00b2   \u22129 = 0",
+                "points": 1,
+                "type": "qcm",
+                "competence": "R\u00e9solution de probl\u00e8mes",
+                "options": [
+                    "x=2",
+                    "x=5",
+                    "x=3 ou x = -3"
+                ],
+                "reponse_correcte": "2"
             }
         ],
-        "status": "termin\u00e9",
-        "created_at": "2025-02-06 13:09:35",
-        "points_total": 1,
-        "share_token": "dd602f8af7812627936d907d4743dd65"
+        "status": "en cours d'\u00e9criture",
+        "created_at": "2025-02-06 14:41:32",
+        "points_total": 3,
+        "type_reponses": "qcm",
+        "objectif": ""
     }
 ]

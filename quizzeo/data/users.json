@@ -1,36 +1,34 @@
 [
     {
-        "id": "67a3b6fa89420",
+        "id": "67a4b8d60199b",
+        "email": "marwan@gmail.com",
+        "password": "$2y$10$r.S9.9d7jBdtOvZ1RFckmuGdXNZ70HPSVDjH83ncCzKKH2tRa9JMm",
+        "role": "ecole",
+        "nom": "Haj Mohamed",
+        "prenom": "Marwan",
+        "active": true,
+        "created_at": "2025-02-06 14:27:50",
+        "nom_etablissement": "IPSSI"
+    },
+    {
+        "id": "67a4b8f62e9c5",
         "email": "mounir@gmail.com",
-        "password": "$2y$10$gC9fRfyfdb3DD9EhCsuJk.aJOibkG7Gq1XvGRR0GKxfIbS5uLGLm2",
+        "password": "$2y$10$m0eh4GttpsKhfROAwfImxuOi/gQq9l.I30ubq8XvuYyadaPOCO9cy",
         "role": "entreprise",
-        "nom": "el gacem",
+        "nom": "El Gacem",
         "prenom": "Mounir",
         "active": true,
-        "created_at": "2025-02-05 20:07:38",
-        "nom_entreprise": "Mortek747",
-        "status": "d\u00e9sactiv\u00e9"
+        "created_at": "2025-02-06 14:28:22",
+        "nom_entreprise": "Mortek"
     },
     {
-        "id": "67a3b8a9913e7",
-        "email": "mouns@gmail.com",
-        "password": "$2y$10$lC\/OEshVl.WGihNtbMk0T.eQdPIfX91sLSQeskRIoiEMCBaMhVUOq",
-        "role": "ecole",
-        "nom": "El",
-        "prenom": "Mouns",
-        "active": true,
-        "created_at": "2025-02-05 20:14:49",
-        "nom_etablissement": "Ipssi",
-        "status": "d\u00e9sactiv\u00e9"
-    },
-    {
-        "id": "67a3d672e551d",
-        "email": "zebi@3sbah.com",
-        "password": "$2y$10$9tPw1Bhe3VcxBCgc.tNCEuCGhteaolrmSfOp3HKGC8RLmBnMBpDzq",
+        "id": "67a4b90beca7a",
+        "email": "matteo@gmail.com",
+        "password": "$2y$10$cb6TTrFJONfUTUr7VUeG6u2HGVd/7DuGHpo/Fyolm1U1twokj2PFW",
         "role": "utilisateur",
-        "nom": "zebiletrotoire",
-        "prenom": "karaydoumerde",
+        "nom": "Montaggioni ",
+        "prenom": "Matteo",
         "active": true,
-        "created_at": "2025-02-05 22:21:54"
+        "created_at": "2025-02-06 14:28:44"
     }
 ]
