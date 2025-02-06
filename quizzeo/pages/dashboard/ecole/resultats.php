@@ -38,7 +38,9 @@ if ($quizId) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Résultats - École - Quizzeo</title>
-    <link rel="stylesheet" href="../../../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../../../assets/css/base.css">
+    <link rel="stylesheet" href="../../../assets/css/dashboard-entreprise.css">
+
 </head>
 <body>
     <div class="dashboard-container">

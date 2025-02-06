@@ -9,7 +9,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'ecole') {
     exit;
 }
 
-// Traitement du formulaire
+// Traitement de la création du quiz
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $quizDb = new JsonDatabase('quizzes.json');
     
@@ -18,20 +18,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'user_id' => $_SESSION['user']['id'],
         'titre' => $_POST['titre'],
         'description' => $_POST['description'],
-        'type' => 'examen',
         'questions' => [],
         'status' => 'en cours d\'écriture',
-        'nb_reponses' => 0,
         'created_at' => date('Y-m-d H:i:s'),
         'points_total' => 0
     ];
 
-    // Traitement des questions
     foreach ($_POST['questions'] as $questionData) {
         $question = [
             'id' => uniqid(),
             'texte' => $questionData['texte'],
-            'points' => intval($questionData['points']),
+            'points' => (int)$questionData['points'],
             'options' => $questionData['options'],
             'reponse_correcte' => $questionData['reponse_correcte']
         ];
@@ -51,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Créer un Quiz - École - Quizzeo</title>
-    <link rel="stylesheet" href="../../../assets/css/dashboard.css">
+    <title>Créer un quiz - École</title>
+    <link rel="stylesheet" href="../../../assets/css/create-quiz-ecole.css">
 </head>
 <body>
     <div class="dashboard-container">
@@ -60,9 +57,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <nav class="sidebar">
             <div class="logo">
                 <img src="../../../assets/images/logo.png" alt="Quizzeo">
-            </div>
-            <div class="user-info">
-                <h3><?php echo htmlspecialchars($_SESSION['user']['nom_etablissement']); ?></h3>
             </div>
             <ul class="menu">
                 <li><a href="index.php">Tableau de bord</a></li>
@@ -73,41 +67,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </ul>
         </nav>
 
-        <!-- Main Content -->
         <main class="main-content">
-            <header class="dashboard-header">
+            <div class="header">
                 <h1>Créer un nouveau quiz</h1>
-            </header>
-
-            <div class="content-body">
-                <form method="POST" action="" id="quizForm" class="quiz-form">
-                    <div class="form-section">
-                        <h2>Informations générales</h2>
-                        <div class="form-group">
-                            <label for="titre">Titre du quiz *</label>
-                            <input type="text" id="titre" name="titre" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea id="description" name="description" rows="3"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-section">
-                        <h2>Questions</h2>
-                        <div id="questions-container"></div>
-                        <button type="button" class="btn-secondary" onclick="addQuestion()">
-                            + Ajouter une question
-                        </button>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="submit" class="btn-primary">Enregistrer le quiz</button>
-                        <a href="mes-quiz.php" class="btn-secondary">Annuler</a>
-                    </div>
-                </form>
             </div>
+
+            <form method="POST" action="" id="quizForm" class="quiz-form">
+                <div class="form-section">
+                    <h2>Informations générales</h2>
+                    <div class="form-group">
+                        <label for="titre">Titre du quiz *</label>
+                        <input type="text" id="titre" name="titre" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Questions</h2>
+                    <div id="questions-container"></div>
+                    <button type="button" class="btn-add" onclick="addQuestion()">+ Ajouter une question</button>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Enregistrer le quiz</button>
+                    <a href="mes-quiz.php" class="btn-secondary">Annuler</a>
+                </div>
+            </form>
         </main>
     </div>
 
@@ -116,9 +105,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     function addQuestion() {
         const container = document.getElementById('questions-container');
-        const questionDiv = document.createElement('div');
-        questionDiv.className = 'question-block';
-        questionDiv.innerHTML = `
+        const questionBlock = document.createElement('div');
+        questionBlock.className = 'question-block';
+        questionBlock.innerHTML = `
             <div class="form-group">
                 <label>Question ${questionCount + 1}</label>
                 <input type="text" name="questions[${questionCount}][texte]" required>
@@ -129,32 +118,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="options-container">
                 <label>Options de réponse</label>
-                <div class="options-list" id="options-${questionCount}">
+                <div id="options-list-${questionCount}">
                     <div class="option-item">
                         <input type="text" name="questions[${questionCount}][options][]" required>
                         <input type="radio" name="questions[${questionCount}][reponse_correcte]" value="0" required>
+                        <label>Réponse correcte</label>
                     </div>
                 </div>
-                <button type="button" class="btn-secondary btn-small" onclick="addOption(${questionCount})">
+                <button type="button" class="btn-secondary" onclick="addOption(${questionCount})">
                     + Ajouter une option
                 </button>
             </div>
-            <button type="button" class="btn-danger btn-small" onclick="removeQuestion(this)">
+            <button type="button" class="btn-remove" onclick="removeQuestion(this)">
                 Supprimer la question
             </button>
         `;
-        container.appendChild(questionDiv);
+        container.appendChild(questionBlock);
         questionCount++;
     }
 
     function addOption(questionId) {
-        const optionsList = document.getElementById(`options-${questionId}`);
+        const optionsList = document.getElementById(`options-list-${questionId}`);
         const optionCount = optionsList.children.length;
         const optionDiv = document.createElement('div');
         optionDiv.className = 'option-item';
         optionDiv.innerHTML = `
             <input type="text" name="questions[${questionId}][options][]" required>
-            <input type="radio" name="questions[${questionId}][reponse_correcte]" value="${optionCount}" required>
+            <input type="radio" name="questions[${questionId}][reponse_correcte]" value="${optionCount}">
+            <label>Réponse correcte</label>
         `;
         optionsList.appendChild(optionDiv);
     }

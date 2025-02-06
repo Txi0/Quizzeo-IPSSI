@@ -71,4 +71,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!-- Reste du code HTML pour l'affichage du formulaire -->
