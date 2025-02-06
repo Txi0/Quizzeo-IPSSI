@@ -213,9 +213,7 @@ foreach ($userResponses as $response) {
     <div class="dashboard-container">
         <!-- Sidebar -->
         <nav class="sidebar">
-            <div class="logo">
-                <img src="../../../assets/images/logo.png" alt="Quizzeo">
-            </div>
+ 
             <div class="user-info">
                 <h3><?php echo htmlspecialchars($_SESSION['user']['nom'] . ' ' . $_SESSION['user']['prenom']); ?></h3>
             </div>

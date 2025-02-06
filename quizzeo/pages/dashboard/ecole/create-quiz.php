@@ -55,9 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="dashboard-container">
         <!-- Sidebar -->
         <nav class="sidebar">
-            <div class="logo">
-                <img src="../../../assets/images/logo.png" alt="Quizzeo">
-            </div>
             <ul class="menu">
                 <li><a href="index.php">Tableau de bord</a></li>
                 <li class="active"><a href="create-quiz.php">Créer un quiz</a></li>

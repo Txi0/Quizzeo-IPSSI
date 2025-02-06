@@ -71,9 +71,7 @@ arsort($competencesUniques);
     <div class="dashboard-container">
         <!-- Sidebar -->
         <nav class="sidebar">
-            <div class="logo">
-                <img src="../../../assets/images/logo.png" alt="Quizzeo">
-            </div>
+
             <div class="user-info">
                 <h3><?php echo htmlspecialchars($_SESSION['user']['nom_entreprise'] ?? 'Mon Entreprise'); ?></h3>
             </div>

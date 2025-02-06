@@ -43,9 +43,7 @@ usort($recentQuizzes, function($a, $b) {
     <div class="dashboard-container">
         <!-- Sidebar -->
         <nav class="sidebar">
-            <div class="logo">
-                <img src="../../../assets/images/logo.png" alt="Quizzeo">
-            </div>
+
             <div class="user-info">
                 <h3><?php echo htmlspecialchars($_SESSION['user']['nom_etablissement'] ?? ''); ?></h3>
             </div>

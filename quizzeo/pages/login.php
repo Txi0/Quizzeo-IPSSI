@@ -51,11 +51,154 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion - Quizzeo</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        /* Variables */
+        :root {
+            --primary-color: #8B5CF6;
+            --secondary-color: #7C3AED;
+            --background-color: #f4f6f9;
+            --text-color: #333;
+            --white: #ffffff;
+            --input-border: #e2e8f0;
+            --error-bg: #FEE2E2;
+            --error-text: #991B1B;
+        }
+
+        /* Reset et base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Conteneur de connexion */
+        .login-container {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .login-container:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Logo */
+        .logo {
+            max-width: 200px;
+            margin-bottom: 30px;
+            height: auto;
+        }
+
+        /* Titre */
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+        }
+
+        /* Groupes de formulaire */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1.5px solid var(--input-border);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+
+        /* Bouton de connexion */
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Message d'erreur */
+        .error-message {
+            background-color: var(--error-bg);
+            color: var(--error-text);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Lien d'inscription */
+        .register-link {
+            margin-top: 20px;
+            color: #6b7280;
+        }
+
+        .register-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .register-link a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        /* Design responsive */
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 20px;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .logo {
+                max-width: 150px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="login-container">
-        <img src="../assets/images/logo.png" alt="Quizzeo Logo" class="logo">
+        <img src="../logo.png" alt="Quizzeo Logo" class="logo">
         <h1>Connexion</h1>
 
         <?php if (isset($error)): ?>
