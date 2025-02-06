@@ -35,7 +35,7 @@ Copiez le dossier Quizzeo-IPSSI dans le répertoire C:\xampp\htdocs
 3. Démarrer XAMPP
 
 Lancez l'application XAMPP Control Panel
-Cliquez sur le bouton "Start" à côté d'Apache et MySQL
+Cliquez sur le bouton "Start" à côté d'Apache
 Vérifiez que les services sont bien démarrés (en vert)
 
 4. Accéder à Quizzeo
