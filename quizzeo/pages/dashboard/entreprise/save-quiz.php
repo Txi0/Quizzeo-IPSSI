@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../../../includes/auth.php';
+require_once '../../../includes/database.php';
 
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'entreprise') {
     header('Location: ../../login.php');
@@ -8,30 +9,33 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'entreprise') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $titre = htmlspecialchars($_POST['titre']);
-    $description = htmlspecialchars($_POST['description']);
-    
-    $filePath = '../../../data/quizzes.json';
-    $quizzes = file_exists($filePath) ? json_decode(file_get_contents($filePath), true) : [];
+    $quizDb = new JsonDatabase('quizzes.json');
 
-    // Créer un nouvel ID unique
-    $newId = !empty($quizzes) ? max(array_column($quizzes, 'id')) + 1 : 1;
-
-    // Créer le nouveau quiz
-    $newQuiz = [
-        'id' => $newId,
-        'titre' => $titre,
-        'description' => $description,
-        'status' => 'Inactif',
-        'reponses' => 0
+    $quiz = [
+        'id' => uniqid(),
+        'user_id' => $_SESSION['user']['id'],
+        'titre' => $_POST['titre'],
+        'description' => $_POST['description'],
+        'status' => 'en cours d\'écriture',
+        'nb_reponses' => 0,
+        'questions' => [],
+        'created_at' => date('Y-m-d H:i:s')
     ];
 
-    $quizzes[] = $newQuiz;
+    foreach ($_POST['questions'] as $questionData) {
+        $question = [
+            'id' => uniqid(),
+            'texte' => $questionData['texte'],
+            'type' => $questionData['type'],
+            'options' => $questionData['options'] ?? [],
+        ];
+        $quiz['questions'][] = $question;
+    }
 
-    // Sauvegarder dans le fichier JSON
-    file_put_contents($filePath, json_encode($quizzes, JSON_PRETTY_PRINT));
-
-    header('Location: mes-questionnaires.php');
-    exit;
+    if ($quizDb->insert($quiz)) {
+        header('Location: mes-quiz.php?success=1');
+        exit;
+    } else {
+        echo "Erreur lors de l'enregistrement du quiz.";
+    }
 }
-?>

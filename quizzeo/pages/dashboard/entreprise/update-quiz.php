@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../../../includes/auth.php';
+require_once '../../../includes/database.php';
 
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'entreprise') {
     header('Location: ../../login.php');
@@ -8,29 +9,19 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'entreprise') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $quizId = intval($_POST['id']);
-    $titre = htmlspecialchars($_POST['titre']);
-    $description = htmlspecialchars($_POST['description']);
+    $quizDb = new JsonDatabase('quizzes.json');
+    $quizId = $_POST['id'];
 
-    $filePath = '../../../data/quizzes.json';
+    $quiz = [
+        'titre' => $_POST['titre'],
+        'description' => $_POST['description'],
+        'questions' => $_POST['questions'],
+    ];
 
-    if (file_exists($filePath)) {
-        $quizzes = json_decode(file_get_contents($filePath), true);
-
-        foreach ($quizzes as &$quiz) {
-            if ($quiz['id'] === $quizId) {
-                $quiz['titre'] = $titre;
-                $quiz['description'] = $description;
-                break;
-            }
-        }
-
-        file_put_contents($filePath, json_encode($quizzes, JSON_PRETTY_PRINT));
-        header('Location: mes-questionnaires.php');
+    if ($quizDb->update($quizId, $quiz)) {
+        header('Location: mes-quiz.php?updated=1');
         exit;
     } else {
-        echo "Le fichier de questionnaires est introuvable.";
+        echo "Erreur lors de la mise à jour du quiz.";
     }
-} else {
-    echo "Requête invalide.";
 }
