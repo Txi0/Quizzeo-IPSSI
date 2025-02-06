@@ -26,10 +26,10 @@
     {
         "id": "67a3d672e551d",
         "email": "zebi@3sbah.com",
-        "password": "$2y$10$vLrF0CvX184txEDf3UqCeutu8n2IE82ZH5Mw9r8ufcEQRcQTt0wUu",
+        "password": "$2y$10$9tPw1Bhe3VcxBCgc.tNCEuCGhteaolrmSfOp3HKGC8RLmBnMBpDzq",
         "role": "utilisateur",
-        "nom": "greglepd",
-        "prenom": "zebilamouche",
+        "nom": "zebiletrotoire",
+        "prenom": "karaydoumerde",
         "active": true,
         "created_at": "2025-02-05 22:21:54"
     }
