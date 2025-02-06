@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reponses'])) {
         $quiz['nb_reponses'] = ($quiz['nb_reponses'] ?? 0) + 1;
         $quizDb->update($quiz['id'], ['nb_reponses' => $quiz['nb_reponses']]);
         
-        header('Location: dashboard/utilisateur/index.php?success=1');
+        header('Location: http://localhost/Quizzeo-IPSSI/quizzeo/pages/dashboard/utilisateur/index.php');
         exit;
     }
 }

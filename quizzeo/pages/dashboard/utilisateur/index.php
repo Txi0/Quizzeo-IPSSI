@@ -187,8 +187,8 @@ foreach ($userResponses as $response) {
             <!-- Input pour le lien du quiz -->
             <div class="quiz-input">
                 <h2>Répondre à un questionnaire</h2>
-                <form action="../../repondre.php" method="GET">
-                    <input type="text" name="token" placeholder="Collez le lien ou le token du questionnaire ici">
+                <form action="../../../repondre.php" method="GET">
+                    <input type="text" name="token" placeholder="Collez le token du questionnaire ici">
                     <button type="submit" class="btn-primary">Accéder au questionnaire</button>
                 </form>
             </div>
