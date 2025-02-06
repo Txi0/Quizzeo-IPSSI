@@ -1,131 +1,159 @@
-# 📚 Quizzeo - Plateforme de Quiz en Ligne
+# Quizzeo - Plateforme de Quiz en Ligne
 
+![Logo Quizzeo](logo.png)
 
-## 📋 À propos
+## Présentation
 
-Quizzeo est une plateforme web innovante permettant la création et la gestion de quiz en ligne. Le projet est conçu pour répondre aux besoins des écoles et des entreprises souhaitant créer des questionnaires personnalisés.
+Quizzeo est une plateforme web permettant la création et la gestion de quiz en ligne. Développée pour répondre aux besoins des institutions éducatives et des entreprises, elle offre une solution complète pour la création, la distribution et l'analyse de questionnaires.
 
-### 🎯 Fonctionnalités principales
+## Fonctionnalités
 
-- **Multi-rôles** :
-  - 👨‍🏫 **Écoles** : Création de quiz notés pour les étudiants
-  - 💼 **Entreprises** : Questionnaires de satisfaction
-  - 👥 **Utilisateurs** : Réponse aux quiz via liens directs
-  - 👨‍💼 **Administrateur** : Gestion globale de la plateforme
+### Système Multi-utilisateurs
 
-- **Gestion des Quiz** :
-  - ✏️ Création de questions QCM
-  - 📊 Système de points
-  - 🔗 Partage par liens
-  - 📈 Statistiques détaillées
+- **Administrateur**
+  - Gestion globale de la plateforme
+  - Supervision des utilisateurs
+  - Administration des quiz
+  - Accès aux statistiques système
 
-- **Fonctionnalités avancées** :
-  - 🔒 Authentification sécurisée
-  - 🤖 Protection CAPTCHA
-  - 📱 Interface responsive
-  - ⚡ Animations fluides
+- **École**
+  - Création de questionnaires notés
+  - Système de notation automatique
+  - Suivi des performances des étudiants
+  - Statistiques détaillées par quiz
 
-## 🛠️ Installation
+- **Entreprise**
+  - Création de sondages
+  - Questionnaires de satisfaction
+  - Analyse des réponses
+  - Rapports statistiques
 
-### Prérequis
+- **Utilisateur Standard**
+  - Accès aux quiz via liens directs
+  - Gestion du profil personnel
+  - Historique des participations
+  - Interface intuitive
 
-- XAMPP (ou environnement similaire)
-- PHP 7.4 ou supérieur
+## Installation
+
+### Prérequis Techniques
+
+- Serveur web compatible PHP
+- XAMPP ou environnement similaire
+- PHP version 7.4 ou supérieure
 - Navigateur web moderne
 
-### Étapes d'installation
+### Procédure d'Installation
 
-1. **Installation de XAMPP**
+1. **Configuration de l'Environnement**
    ```bash
-   # Téléchargez XAMPP depuis
+   # Installation via le site officiel XAMPP
    https://www.apachefriends.org/fr/download.html
    ```
 
-2. **Configuration du projet**
+2. **Déploiement du Projet**
    ```bash
-   # Clonez le repository
+   # Clonage du repository
    git clone https://github.com/votre-username/Quizzeo-IPSSI.git
 
-   # Déplacez le dossier dans htdocs
+   # Déploiement dans le répertoire web
    mv Quizzeo-IPSSI C:/xampp/htdocs/
    ```
 
-3. **Lancement**
-   - Démarrez XAMPP Control Panel
-   - Activez Apache
-   - Accédez à `http://localhost/Quizzeo-IPSSI/`
+3. **Configuration du Serveur**
+   - Lancement du panneau de contrôle XAMPP
+   - Activation du service Apache
+   - Accès via `http://localhost/Quizzeo-IPSSI/`
 
-## 👥 Rôles et Fonctionnalités
+## Architecture Technique
 
-### Administrateur
-- 📊 Tableau de bord de gestion
-- 👥 Gestion des utilisateurs
-- 🛠️ Administration des quiz
-- 📈 Statistiques globales
+### Technologies Utilisées
 
-### École
-- ✏️ Création de quiz notés
-- 📝 Questions à choix multiples
-- 🎯 Attribution de points
-- 📊 Suivi des résultats
+- **Backend**
+  - PHP 7.4+
+  - Architecture MVC
+  - Système de fichiers JSON pour le stockage
 
-### Entreprise
-- 📋 Création de sondages
-- 💬 Questions ouvertes ou QCM
-- 📊 Analyse des réponses
-- 📈 Statistiques détaillées
+- **Frontend**
+  - HTML5
+  - CSS3
+  - JavaScript vanilla
+  - Design responsive
 
-### Utilisateur
-- ✅ Réponse aux quiz
-- 👤 Gestion du profil
-- 📱 Interface intuitive
-- 📊 Historique des participations
+### Sécurité
 
-## 🎨 Interface
+- Authentification obligatoire
+- Système de vérification CAPTCHA
+- Gestion sécurisée des sessions
+- Validation des données entrantes
 
-- Design moderne et épuré
-- Palette de couleurs harmonieuse
-- Animations subtiles
-- Interface responsive
+## Documentation
 
-## 🛡️ Sécurité
+### Structure du Projet
 
-- 🔒 Authentification requise
-- 🤖 Protection CAPTCHA
-- 🔐 Gestion des sessions
-- ✅ Validation des données
+Le projet est organisé selon l'architecture suivante :
+```
+Quizzeo/
+├── docs/
+│   ├── installation.md
+│   ├── user-guide.md
+│   └── technical-specs.md
+├── src/
+│   ├── controllers/
+│   ├── models/
+│   └── views/
+├── public/
+│   ├── css/
+│   ├── js/
+│   └── assets/
+└── README.md
+```
 
-## 📦 Technologies utilisées
+### Documentation Disponible
 
-- PHP
-- HTML5/CSS3
-- JavaScript
-- JSON (stockage de données)
-
-## 📝 Documentation
-
-Une documentation complète est disponible dans le dossier `docs/` incluant :
 - Guide d'installation détaillé
-- Manuel d'utilisation
+- Manuel utilisateur par rôle
 - Documentation technique
-- Diagrammes UML
+- Diagrammes UML et architecture
 
-## 👨‍💻 Contribution
+## Développement
 
-Les contributions sont les bienvenues ! Voici comment participer :
-1. Fork du projet
-2. Création d'une branche (`git checkout -b feature/AmazingFeature`)
-3. Commit des changements (`git commit -m 'Add: Amazing Feature'`)
-4. Push vers la branche (`git push origin feature/AmazingFeature`)
-5. Ouverture d'une Pull Request
+### Standards de Code
 
-## 📄 Licence
+- PSR-12 pour PHP
+- ESLint pour JavaScript
+- Validation W3C pour HTML/CSS
 
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+### Contribution
 
-## ✨ Auteurs
+1. Fork du repository
+2. Création d'une branche de feature
+3. Commit des modifications
+4. Push vers la branche
+5. Création d'une Pull Request
 
-- [Votre Nom](https://github.com/votre-username)
+### Tests
+
+- Tests unitaires avec PHPUnit
+- Tests d'intégration
+- Validation des formulaires
+- Tests de compatibilité navigateurs
+
+## Support et Contact
+
+Pour toute question ou assistance :
+- Documentation : `/docs`
+- Issues GitHub : [Lien vers les issues]
+- Contact : [Adresse email]
+
+## Licence
+
+Ce projet est distribué sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+
+## Équipe de Développement
+
+- [Nom du développeur principal]
+- [Autres contributeurs]
 
 ---
-Développé avec ❤️ pour Quizzeo
+Projet développé dans le cadre de la formation IPSSI
