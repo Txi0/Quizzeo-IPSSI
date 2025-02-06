@@ -28,9 +28,9 @@ Cochez les services Apache et MySQL lors de l'installation
 
 Visitez le repository GitHub du projet Quizzeo
 Téléchargez le code source au format ZIP
-Décompressez le fichier ZIP
-Renommez le dossier décompressé en Quizzeo-IPSSI
-Copiez le dossier Quizzeo-IPSSI dans le répertoire C:\xampp\htdocs
+Décompressez le "Quizzeo-IPSSI-main" fichier ZIP
+Extraire le dossier "quizzeo"
+Copiez le dossier "quizzeo" dans le répertoire C:\xampp\htdocs
 
 3. Démarrer XAMPP
 
@@ -40,4 +40,4 @@ Vérifiez que les services sont bien démarrés (en vert)
 
 4. Accéder à Quizzeo
 Ouvrez votre navigateur web et saisissez l'URL suivante :
-Copy http://localhost/Quizzeo-IPSSI/quizzeo/pages/login.php
+Copy http://localhost/Quizzeo/pages/login.php
