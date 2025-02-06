@@ -126,4 +126,4 @@ Quizzeo est une plateforme web permettant la création et la gestion de quiz en 
 - Matteo
 
 ---
-Projet développé dans le cadre de la formation IPSSI
+IPSSI
