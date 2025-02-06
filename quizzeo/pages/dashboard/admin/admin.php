@@ -36,6 +36,8 @@ $quizzes = readJsonFile(__DIR__ . '/../../../data/quizzes.json');
             --primary-color: #8B5CF6;
             --secondary-color: #FFB340;
             --background-color: #F3F4F6;
+            --danger-color: #EF4444;
+            --success-color: #10B981;
         }
 
         body {
@@ -115,6 +117,14 @@ $quizzes = readJsonFile(__DIR__ . '/../../../data/quizzes.json');
             opacity: 0.9;
         }
 
+        .delete-btn {
+            background-color: var(--danger-color);
+        }
+
+        .delete-btn:hover {
+            background-color: #DC2626;
+        }
+
         .status {
             padding: 4px 8px;
             border-radius: 4px;
@@ -122,27 +132,66 @@ $quizzes = readJsonFile(__DIR__ . '/../../../data/quizzes.json');
         }
 
         .status-active {
-            background-color: #10B981;
+            background-color: var(--success-color);
             color: white;
         }
 
         .status-inactive {
-            background-color: #EF4444;
+            background-color: var(--danger-color);
             color: white;
         }
 
         .btn-logout {
             display: inline-block;
             padding: 8px 16px;
-            background-color: #EF4444;
+            background-color: var(--danger-color);
             color: white;
             text-decoration: none;
             border-radius: 4px;
             float: right;
         }
+
+        .alert {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+        }
+
+        .alert-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .alert-error {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .actions-container {
+            display: flex;
+            gap: 10px;
+        }
     </style>
 </head>
 <body>
+    <?php if (isset($_SESSION['success'])): ?>
+        <div class="alert alert-success">
+            <?php 
+            echo $_SESSION['success'];
+            unset($_SESSION['success']);
+            ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="alert alert-error">
+            <?php 
+            echo $_SESSION['error'];
+            unset($_SESSION['error']);
+            ?>
+        </div>
+    <?php endif; ?>
+
     <a href="../../../logout.php" class="btn-logout">Déconnexion</a>
     <h1>Administration Quizzeo</h1>
 
@@ -208,7 +257,7 @@ $quizzes = readJsonFile(__DIR__ . '/../../../data/quizzes.json');
                 <th>Titre</th>
                 <th>Statut</th>
                 <th>Réponses</th>
-                <th>Action</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -222,10 +271,17 @@ $quizzes = readJsonFile(__DIR__ . '/../../../data/quizzes.json');
                 </td>
                 <td><?php echo $quiz['nb_reponses'] ?? 0; ?></td>
                 <td>
-                    <a href="admin_action.php?action=toggle_quiz_status&id=<?php echo $quiz['id'] ?? ''; ?>" 
-                       class="action-link">
-                        <?php echo ($quiz['status'] ?? '') === 'actif' ? 'Désactiver' : 'Activer'; ?>
-                    </a>
+                    <div class="actions-container">
+                        <a href="admin_action.php?action=toggle_quiz_status&id=<?php echo $quiz['id'] ?? ''; ?>" 
+                           class="action-link">
+                            <?php echo ($quiz['status'] ?? '') === 'actif' ? 'Désactiver' : 'Activer'; ?>
+                        </a>
+                        <a href="admin_action.php?action=delete_quiz&id=<?php echo $quiz['id'] ?? ''; ?>" 
+                           class="action-link delete-btn"
+                           onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce quiz ?');">
+                            Supprimer
+                        </a>
+                    </div>
                 </td>
             </tr>
             <?php endforeach; ?>

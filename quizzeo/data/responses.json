@@ -70,5 +70,20 @@
         "score_max": 3,
         "pourcentage": 0,
         "date": "2025-02-06 23:10:58"
+    },
+    {
+        "id": "67a5351338bd2",
+        "quiz_id": "67a4ba530fdc2",
+        "user_id": "67a4b90beca7a",
+        "user_name": "Montaggioni  Matteo",
+        "reponses": [
+            "0",
+            "1",
+            "2"
+        ],
+        "score": 1,
+        "score_max": 3,
+        "pourcentage": 33.3,
+        "date": "2025-02-06 23:17:55"
     }
 ]
