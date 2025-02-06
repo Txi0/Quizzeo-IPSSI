@@ -36,6 +36,7 @@ foreach ($userResponses as $response) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de bord - Utilisateur</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
             --primary-color: #8B5CF6;
@@ -67,6 +68,7 @@ foreach ($userResponses as $response) {
         .main-content {
             flex: 1;
             padding: 20px;
+            position: relative;
         }
 
         .header {
@@ -74,6 +76,56 @@ foreach ($userResponses as $response) {
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
+        }
+
+        /* Profile Dropdown Styles */
+        .profile-actions {
+            position: relative;
+        }
+
+        .profile-icon {
+            font-size: 24px;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .profile-icon:hover {
+            color: var(--secondary-color);
+        }
+
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            min-width: 200px;
+        }
+
+        .profile-dropdown.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: #F3F4F6;
+        }
+
+        .dropdown-item i {
+            margin-right: 10px;
+            color: var(--primary-color);
         }
 
         .quiz-input {
@@ -120,6 +172,8 @@ foreach ($userResponses as $response) {
             border-radius: 6px;
             text-decoration: none;
             display: inline-block;
+            border: none;
+            cursor: pointer;
         }
 
         .menu {
@@ -176,6 +230,19 @@ foreach ($userResponses as $response) {
         <main class="main-content">
             <div class="header">
                 <h1>Tableau de bord</h1>
+                <div class="profile-actions">
+                    <div class="profile-icon" onclick="toggleProfileMenu()">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div id="profile-dropdown" class="profile-dropdown">
+                        <a href="profil.php" class="dropdown-item">
+                            <i class="fas fa-user"></i> Modifier mon profil
+                        </a>
+                        <a href="security.php" class="dropdown-item">
+                            <i class="fas fa-lock"></i> Sécurité
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <?php if (isset($_GET['success'])): ?>
@@ -196,21 +263,42 @@ foreach ($userResponses as $response) {
             <!-- Réponses récentes -->
             <h2>Vos réponses récentes</h2>
             <div class="responses-grid">
-                <?php foreach ($reponseDetails as $detail): ?>
-                    <div class="response-card">
-                        <h3><?php echo htmlspecialchars($detail['quiz']['titre']); ?></h3>
-                        <?php if (isset($detail['reponse']['score'])): ?>
-                            <div class="score">
-                                Score : <?php echo $detail['reponse']['score']; ?> / <?php echo $detail['quiz']['points_total']; ?>
+                <?php if (empty($reponseDetails)): ?>
+                    <p>Vous n'avez pas encore de réponses à des questionnaires.</p>
+                <?php else: ?>
+                    <?php foreach ($reponseDetails as $detail): ?>
+                        <div class="response-card">
+                            <h3><?php echo htmlspecialchars($detail['quiz']['titre']); ?></h3>
+                            <?php if (isset($detail['reponse']['score'])): ?>
+                                <div class="score">
+                                    Score : <?php echo $detail['reponse']['score']; ?> / <?php echo $detail['quiz']['points_total']; ?>
+                                </div>
+                            <?php endif; ?>
+                            <div class="date">
+                                Répondu le <?php echo date('d/m/Y à H:i', strtotime($detail['reponse']['date'])); ?>
                             </div>
-                        <?php endif; ?>
-                        <div class="date">
-                            Répondu le <?php echo date('d/m/Y à H:i', strtotime($detail['reponse']['date'])); ?>
                         </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
         </main>
     </div>
+
+    <script>
+    function toggleProfileMenu() {
+        const dropdown = document.getElementById('profile-dropdown');
+        dropdown.classList.toggle('show');
+    }
+
+    // Fermer le menu si on clique en dehors
+    window.onclick = function(event) {
+        if (!event.target.matches('.profile-icon i')) {
+            const dropdown = document.getElementById('profile-dropdown');
+            if (dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+            }
+        }
+    }
+    </script>
 </body>
 </html>

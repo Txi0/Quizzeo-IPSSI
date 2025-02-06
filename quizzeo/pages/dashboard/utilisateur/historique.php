@@ -55,7 +55,6 @@ usort($historique, function($a, $b) {
             </div>
             <ul class="menu">
                 <li><a href="index.php">Tableau de bord</a></li>
-                <li><a href="repondre.php">Répondre à un quiz</a></li>
                 <li class="active"><a href="historique.php">Historique</a></li>
                 <li><a href="../../../logout.php">Déconnexion</a></li>
             </ul>
