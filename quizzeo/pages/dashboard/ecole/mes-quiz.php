@@ -27,7 +27,240 @@ function generateShareToken() {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mes Quiz - École</title>
-    <link rel="stylesheet" href="../../../assets/css/mes-quiz-ecole.css">
+    <style>
+        /* Styles pour le dashboard École */
+        :root {
+            --primary-color: #8B5CF6;  /* Couleur violette principale */
+            --secondary-color: #6B48F3; /* Nuance de violet légèrement différente */
+            --background-color: #f4f4f9;
+            --white: #ffffff;
+            --text-color: #333;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: var(--white);
+            border-right: 1px solid var(--border-color);
+            padding: 20px 0;
+        }
+
+        .sidebar .menu {
+            list-style-type: none;
+        }
+
+        .sidebar .menu li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar .menu li a {
+            display: block;
+            padding: 10px 20px;
+            color: #6B48F3;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar .menu li a:hover,
+        .sidebar .menu li a.active {
+            background-color: rgba(139, 92, 246, 0.1);
+            color: var(--primary-color);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            padding: 30px;
+            background-color: var(--background-color);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Quiz Cards */
+        .quiz-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .quiz-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .quiz-header h3 {
+            color: var(--primary-color);
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .status-badge.en\ cours\ d\'écriture {
+            background-color: #FFA500;
+            color: var(--white);
+        }
+
+        .status-badge.lancé {
+            background-color: #28a745;
+            color: var(--white);
+        }
+
+        .status-badge.terminé {
+            background-color: #6c757d;
+            color: var(--white);
+        }
+
+        .quiz-info {
+            margin-bottom: 15px;
+        }
+
+        .quiz-info p {
+            color: #6B7280;
+            margin: 5px 0;
+        }
+
+        .quiz-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn-secondary, .btn-warning, .btn-danger {
+            padding: 8px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+
+        .btn-warning {
+            background-color: #FFA500;
+            color: var(--white);
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: var(--white);
+        }
+
+        .share-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .share-link input {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        .btn-copy {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .empty-state {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert-success {
+            background-color: #DEF7EC;
+            color: #03543F;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .sidebar .menu {
+                display: flex;
+                justify-content: space-around;
+            }
+
+            .quiz-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="dashboard-container">

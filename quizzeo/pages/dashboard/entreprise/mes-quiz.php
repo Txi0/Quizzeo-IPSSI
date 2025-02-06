@@ -154,7 +154,7 @@ $allResponses = $responsesDb->getAll();
                                             $quiz['share_token'] = generateShareToken();
                                             $quizDb->update($quiz['id'], ['share_token' => $quiz['share_token']]);
                                         }
-                                        $shareLink = "http://" . $_SERVER['HTTP_HOST'] . "/repondre.php?token=" . $quiz['share_token'];
+                                        $shareLink = "http://" . $_SERVER['HTTP_HOST'] . "/Quizzeo-IPSSI/quizzeo/repondre.php?token=" . $quiz['share_token'];
                                         ?>
                                         <input type="text" value="<?php echo $shareLink; ?>" 
                                                id="shareLink_<?php echo $quiz['id']; ?>" readonly>

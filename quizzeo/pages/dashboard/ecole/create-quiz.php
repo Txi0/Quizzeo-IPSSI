@@ -49,7 +49,223 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Créer un quiz - École</title>
-    <link rel="stylesheet" href="../../../assets/css/create-quiz-ecole.css">
+    <style>
+        /* Variables */
+        :root {
+            --primary-color: #8B5CF6;
+            --secondary-color: #6B48F3;
+            --background-color: #f4f4f9;
+            --white: #ffffff;
+            --text-color: #333;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: var(--white);
+            border-right: 1px solid var(--border-color);
+            padding: 20px 0;
+        }
+
+        .sidebar .menu {
+            list-style-type: none;
+        }
+
+        .sidebar .menu li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar .menu li a {
+            display: block;
+            padding: 10px 20px;
+            color: #6B48F3;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar .menu li a:hover,
+        .sidebar .menu li a.active {
+            background-color: rgba(139, 92, 246, 0.1);
+            color: var(--primary-color);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            padding: 30px;
+            background-color: var(--background-color);
+        }
+
+        .header {
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 24px;
+        }
+
+        /* Quiz Form */
+        .quiz-form {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .form-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+
+        /* Question Block */
+        .question-block {
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .options-container {
+            margin-top: 15px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .option-item input[type="text"] {
+            flex-grow: 1;
+        }
+
+        .option-item input[type="radio"] {
+            margin: 0 10px;
+        }
+
+        /* Buttons */
+        .btn-add,
+        .btn-secondary,
+        .btn-primary,
+        .btn-remove {
+            padding: 10px 15px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-add {
+            background-color: var(--primary-color);
+            color: var(--white);
+            margin-top: 15px;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-remove {
+            background-color: #dc3545;
+            color: var(--white);
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .sidebar .menu {
+                display: flex;
+                justify-content: space-around;
+            }
+
+            .quiz-form {
+                padding: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="dashboard-container">

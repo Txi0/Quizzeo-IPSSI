@@ -37,13 +37,315 @@ usort($recentQuizzes, function($a, $b) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard École - Quizzeo</title>
-    <link rel="stylesheet" href="../../../assets/css/dashboard-ecole.css">
+    <style>
+        /* Variables */
+        :root {
+            --primary-color: #8B5CF6;
+            --secondary-color: #6B48F3;
+            --background-color: #f4f4f9;
+            --white: #ffffff;
+            --text-color: #333;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: var(--white);
+            border-right: 1px solid var(--border-color);
+            padding: 20px 0;
+        }
+
+        .sidebar .user-info {
+            text-align: center;
+            padding: 0 20px 20px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .sidebar .user-info h3 {
+            color: var(--secondary-color);
+            font-size: 16px;
+        }
+
+        .sidebar .menu {
+            list-style-type: none;
+        }
+
+        .sidebar .menu li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar .menu li a {
+            display: block;
+            padding: 10px 20px;
+            color: #6B48F3;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .sidebar .menu li a:hover,
+        .sidebar .menu li a.active {
+            background-color: rgba(139, 92, 246, 0.1);
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            padding: 30px;
+            background-color: var(--background-color);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 24px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: darken(#8B5CF6, 10%);
+        }
+
+        /* Stats Container */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .stat-card .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* Recent Quizzes */
+        .recent-quizzes {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .recent-quizzes h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: var(--secondary-color);
+        }
+
+        .quiz-card {
+            background-color: var(--background-color);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: var(--white);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .quiz-header h3 {
+            color: var(--primary-color);
+            font-size: 16px;
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .status-badge.en\ cours\ d\'écriture {
+            background-color: #FFA500;
+            color: var(--white);
+        }
+
+        .status-badge.lancé {
+            background-color: #28a745;
+            color: var(--white);
+        }
+
+        .status-badge.terminé {
+            background-color: #6c757d;
+            color: var(--white);
+        }
+
+        .quiz-body {
+            padding: 15px;
+        }
+
+        .quiz-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .quiz-info p {
+            color: var(--secondary-color);
+        }
+
+        .quiz-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn-secondary, .btn-danger, .btn-warning {
+            padding: 8px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: var(--white);
+        }
+
+        .btn-warning {
+            background-color: #FFA500;
+            color: var(--white);
+        }
+
+        .share-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .share-link input {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        .btn-copy {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .sidebar .menu {
+                display: flex;
+                justify-content: space-around;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header h1 {
+                margin-bottom: 15px;
+            }
+
+            .quiz-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="dashboard-container">
         <!-- Sidebar -->
         <nav class="sidebar">
-
             <div class="user-info">
                 <h3><?php echo htmlspecialchars($_SESSION['user']['nom_etablissement'] ?? ''); ?></h3>
             </div>
