@@ -60,9 +60,6 @@ Quizzeo est une plateforme web permettant la création et la gestion de quiz en 
     Extraie le fichier ZIP
     Renommer le fichier "Quizzeo-IPSSI-main" avec "Quizzeo-IPSSI"
     Copiez le dossier "Quizzeo-IPSSI" dans le répertoire C:\xampp\htdocs
-
-   # Déploiement dans le répertoire web
-   mv Quizzeo-IPSSI C:/xampp/htdocs/
    ```
 
 3. **Configuration du Serveur**
