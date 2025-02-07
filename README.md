@@ -125,5 +125,3 @@ Quizzeo est une plateforme web permettant la création et la gestion de quiz en 
 - Marwan
 - Matteo
 
----
-IPSSI
